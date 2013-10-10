@@ -1,0 +1,27 @@
+{
+  "manifest_version": 2,
+
+  "name": "Coursera Enhancement Suite",
+  "description": "Coursera Enhancement Suite",
+  "version": "0.2.0",
+
+  "content_scripts": [
+    {
+      "matches": ["https://*.coursera.org/*"],
+      "css": ["css/ces.css"],
+      "js": ["js/lib/jquery-1.10.2.min.js", "js/lib/lodash.min.js", "js/ces.js"]
+    }
+  ],
+
+  "permissions": [
+    "https://www.coursera.org/",
+    "https://class.coursera.org/"
+  ],
+
+  "web_accessible_resources": [
+    "html/badge.html",
+    "html/settings_link.html",
+    "html/settings.html",
+    "html/user_menu.html"
+  ]
+}

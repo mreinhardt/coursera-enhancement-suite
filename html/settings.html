@@ -1,0 +1,58 @@
+<div class="ces-overlay">
+    <div class="ces-modal ces-settings">
+        <a href="#" class="close">&#10006;</a>
+        <ul class="tabs">
+            <li><a href="#users">Users</a></li>
+            <li><a href="#about">About</a></li>
+        </ul>
+        <div class="panes">
+            <div class="users">
+                <h3>Tagged Users</h3>
+                <table class="ces-table tag">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Tag</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <% _.each(tagged_users, function(user) { %>
+                        <tr class="user">
+                            <td class="id"><%= user.id %></td>
+                            <td class="name"><%- user.name %></td>
+                            <td class="tag"><%- user.tag %></td>
+                            <td><a href="#del">&#10006;</a></td>
+                        </tr>
+                    <% }); %>
+                    </tbody>
+                </table>
+
+                <h3>Ignored Users</h3>
+                <table class="ces-table ignore">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <% _.each(ignored_users, function(user) { %>
+                        <tr class="user">
+                            <td class="id"><%= user.id %></td>
+                            <td class="name"><%- user.name %></td>
+                            <td><a href="#del">&#10006;</a></td>
+                        </tr>
+                    <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="about">
+                <p><a href="https://github.com/mreinhardt/coursera-enhancement-suite">Coursera Enhancement Suite</a></p>
+                <p>Created by Michael Reinhardt</p>
+            </div>
+        </div>
+    </div>
+</div>
