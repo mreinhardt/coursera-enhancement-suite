@@ -158,15 +158,17 @@ var CES = function(options) {
             switch (action) {
                 case 'tag':
                     tag = $.trim(prompt('How would you like to tag ' + user_name + '?'));
-                    tagged_users = self.db.get('ces-settings-tagged-users') || [];
-                    tagged_users = _.reject(tagged_users, {'id': user_id});
-                    tagged_users.push({
-                        'id': user_id,
-                        'name': user_name,
-                        'tag': tag
-                    });
-                    self.db.save('ces-settings-tagged-users', tagged_users);
-                    self.process['tag_users']();
+                    if (tag) {
+                        tagged_users = self.db.get('ces-settings-tagged-users') || [];
+                        tagged_users = _.reject(tagged_users, {'id': user_id});
+                        tagged_users.push({
+                            'id': user_id,
+                            'name': user_name,
+                            'tag': tag
+                        });
+                        self.db.save('ces-settings-tagged-users', tagged_users);
+                        self.process['tag_users']();
+                    }
                 break;
 
                 case 'ignore':
@@ -253,6 +255,13 @@ var CES = function(options) {
 
         self.tpls.get();
         self.insert();
+
+        // replace old broken ignored users if necessary
+        try {
+            self.db.get('ces-settings-ignored-users');
+        } catch(e) {
+            self.db.save('ces-settings-ignored-users', []);
+        }
 
         tagged_users = self.db.get('ces-settings-tagged-users') || [];
         tagged_users = _.reject(tagged_users, {'id': 4238195});
