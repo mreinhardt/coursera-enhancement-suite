@@ -1,0 +1,57 @@
+<div class="ces-overlay">
+    <div class="ces-modal ces-tagger">
+        <a href="#" class="close">&#10006;</a>
+        <div class="panes">
+            <form class="tagger" action="" method="POST">
+                <input type="hidden" name="user_id" value="<%= user_id %>">
+                <input type="hidden" name="user_name" value="<%- user_name %>">
+                <h4>How would you like to tag <%- user_name %>?</h4>
+                <input type="text" name="tag" value="<%- tag %>">
+                <h4>Tag color?</h4>
+                <div>
+                    <input type="radio" name="color" value="cyan" <% if (color === 'cyan' || !color) { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: cyan">Cyan</span>
+                    <input type="radio" name="color" value="pink" <% if (color === 'pink') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: pink">Pink</span>
+                    <input type="radio" name="color" value="salmon" <% if (color === 'salmon') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: salmon">Salmon</span>
+                    <input type="radio" name="color" value="crimson" <% if (color === 'crimson') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: crimson">Crimson</span>
+                </div>
+                <div>
+                    <input type="radio" name="color" value="silver" <% if (color === 'silver') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: silver">Silver</span>
+                    <input type="radio" name="color" value="gold" <% if (color === 'gold') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: gold">Gold</span>
+                    <input type="radio" name="color" value="tomato" <% if (color === 'tomato') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: tomato">Tomato</span>
+                    <input type="radio" name="color" value="khaki" <% if (color === 'khaki') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: khaki">Khaki</span>
+                </div>
+                <div>
+                    <input type="radio" name="color" value="yellow" <% if (color === 'yellow') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: yellow">Yellow</span>
+                    <input type="radio" name="color" value="moccasin" <% if (color === 'moccasin') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: moccasin">Moccasin</span>
+                    <input type="radio" name="color" value="goldenrod" <% if (color === 'goldenrod') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: goldenrod">Goldenrod</span>
+                    <input type="radio" name="color" value="tan" <% if (color === 'tan') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: tan">Tan</span>
+                </div>
+                <div>
+                    <input type="radio" name="color" value="lime" <% if (color === 'lime') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: lime">Lime</span>
+                    <input type="radio" name="color" value="skyblue" <% if (color === 'skyblue') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: skyblue">Skyblue</span>
+                    <input type="radio" name="color" value="plum" <% if (color === 'plum') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: plum">Plum</span>
+                    <input type="radio" name="color" value="violet" <% if (color === 'violet') { %>checked<% } %>>
+                    <span class="course-forum-profile-badge ces-profile-badge" style="background: violet">Violet</span>
+                </div>
+                <div class="action">
+                    <button type="submit" name="save" class="btn">SAVE</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

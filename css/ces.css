@@ -38,24 +38,28 @@
 }
 
 /**
- * Settings
+ * Modal
  */
 
 .ces-overlay {
     background: rgba(0, 0, 0, 0.5);
     margin: 0; padding: 0;
     width: 100%; height: 100%;
-    position: absolute; left: 0; top: 0; z-index: 9998;
+    position: fixed; left: 0; top: 0; z-index: 9998;
 }
 
-.ces-settings {
+.ces-modal {
     background: #fff;
     margin: 50px auto 0;
     width: 50%;
     position: relative; z-index: 9999;
 }
 
-.ces-settings .close {
+.ces-modal .hide {
+    display: none;
+}
+
+.ces-modal .close {
     border: 1px solid #ddd;
     display: block;
     padding: 5px;
@@ -64,30 +68,60 @@
     border-radius: 5px;
 }
 
-.ces-settings .tabs {
+.ces-modal .tabs {
     list-style: none;
     margin: 0; padding: 0;
 }
 
-.ces-settings .tabs li {
+.ces-modal .tabs li {
     display: inline-block;
-    margin: 10px; padding: 10px;
+    margin: 5px 10px; padding: 5px 10px;
 }
 
-.ces-settings .tabs li .on {
+.ces-modal .tabs li .on {
     font-weight: bold;
 }
 
-.ces-settings .panes {
+.ces-modal .panes {
+    overflow: auto;
     margin: 0 10px 10px 10px; padding: 0 10px 10px 10px;
+    max-height: 450px;
 }
 
-.ces-settings .panes > div {
+.ces-modal .panes > div {
     display: none;
 }
 
-.ces-settings .panes > div.on {
+.ces-modal .panes > div.on {
     display: block;
+}
+
+.ces-modal .ces-options {
+    margin: 0 0 10px; padding: 0 20px;
+}
+
+.ces-modal .ces-options label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.ces-modal input[type="radio"] {
+    margin: 0 5px 0 15px;
+}
+
+.ces-modal .tagger .ces-profile-badge {
+    display: inline-block;
+    text-align: center;
+    margin: 2px 0;
+    width: 100px;
+}
+
+.ces-modal .action {
+    text-align: center;
+}
+
+.ces-modal button[type="submit"] {
+    margin: 10px 0 0;
 }
 
 /**
@@ -100,7 +134,7 @@
     display: inline-block;
     white-space: nowrap;
     margin: 0; padding: 5px;
-    position: absolute; left: 0; top: 1em;
+    position: absolute; left: 0; top: 1em; z-index: 100;
 
     border-radius: 5px;
 }
@@ -114,6 +148,5 @@
  */
 
 .ces-profile-badge {
-    background: #ddffff !important;
     color: #333 !important;
 }

@@ -2,13 +2,15 @@
     <div class="ces-modal ces-settings">
         <a href="#" class="close">&#10006;</a>
         <ul class="tabs">
-            <li><a href="#users">Users</a></li>
+            <li><a href="#tagged">Tagged</a></li>
+            <li><a href="#ignored">Ignored</a></li>
             <li><a href="#about">About</a></li>
         </ul>
         <div class="panes">
-            <div class="users">
-                <h3>Tagged Users</h3>
-                <table class="ces-table tag">
+            <div class="tagged">
+                <h4>Tagged Users</h4>
+                <% if (tagged_users.length) { %>
+                <table class="ces-table tag" data-ces-table="tagged">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -22,15 +24,51 @@
                         <tr class="user">
                             <td class="id"><%= user.id %></td>
                             <td class="name"><%- user.name %></td>
-                            <td class="tag"><%- user.tag %></td>
+                            <td class="tag">
+                                <span class="course-forum-profile-badge ces-profile-badge" style="background: <%- user.color || 'cyan' %>"><%- user.tag %></span>
+                            </td>
                             <td><a href="#del">&#10006;</a></td>
                         </tr>
                     <% }); %>
+                    <% if (!tagged_users.length) { %>
+                        No tagged users.
+                    <% } %>
                     </tbody>
                 </table>
+                <% } else { %>
+                    <p>No tagged users.</p>
+                <% } %>
+            </div>
 
-                <h3>Ignored Users</h3>
-                <table class="ces-table ignore">
+            <div class="ignored">
+                <h4>Ignored Users</h4>
+                <div class="ces-options">
+                    <div class="row hide-section">
+                        <label for="ces-settings-user-hide-section">Hide Sections</label>
+                        <input name="ces-settings-user-hide-section" type="radio" value="fullthread"
+                         <% if (hide_section == "fullthread") { %>checked<% } %>>Full&nbsp;Thread
+                        <input name="ces-settings-user-hide-section" type="radio" value="headerpost"
+                         <% if (hide_section == "headerpost") { %>checked<% } %>>Header&nbsp;And&nbsp;Post&nbsp;Only
+                        <input name="ces-settings-user-hide-section" type="radio" value="postonly"
+                         <% if (hide_section == "postonly") { %>checked<% } %>>Post&nbsp;Only
+                    </div>
+                    <div class="row hide-style">
+                        <label for="ces-settings-user-hide-style">Hide Style</label>
+                        <input name="ces-settings-user-hide-style" type="radio" value="faded"
+                         <% if (hide_style == "faded") { %>checked<% } %>>Faded
+                        <input name="ces-settings-user-hide-style" type="radio" value="removed"
+                         <% if (hide_style == "removed") { %>checked<% } %>>Removed
+                    </div>
+                    <div class="row hide-show <% if (hide_style == "removed") { %>hide<% } %>">
+                        <label for="ces-settings-user-hide-show">Show Hidden On</label>
+                        <input name="ces-settings-user-hide-show" type="radio" value="hover"
+                         <% if (hide_show == "hover") { %>checked<% } %>>Hover
+                        <input name="ces-settings-user-hide-show" type="radio" value="click"
+                         <% if (hide_show == "click") { %>checked<% } %>>Click
+                    </div>
+                </div>
+                <% if (ignored_users.length) { %>
+                <table class="ces-table ignore" data-ces-table="ignored">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -48,9 +86,14 @@
                     <% }); %>
                     </tbody>
                 </table>
+                <% } else { %>
+                    <p>No ignored users.</p>
+                <% } %>
             </div>
             <div class="about">
+                <h4>About</h4>
                 <p><a href="https://github.com/mreinhardt/coursera-enhancement-suite">Coursera Enhancement Suite</a></p>
+                <p><a href="https://raw.github.com/mreinhardt/coursera-enhancement-suite/master/LICENSE">License</a></p>
                 <p>Created by Michael Reinhardt</p>
             </div>
         </div>
