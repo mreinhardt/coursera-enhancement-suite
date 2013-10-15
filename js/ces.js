@@ -208,7 +208,7 @@ var CES = function(options) {
             var tagged_users, user, $tag_prompt;
 
             tagged_users = self.db.get('ces-settings-tagged-users', []);
-            user = _.find(tagged_users, {'id': user_id});
+            user = _.find(tagged_users, {'id': user_id}) || {};
 
             $els['body'].prepend(_.template(self.tpls['tagger'], {
                 'color': user.color || '',
