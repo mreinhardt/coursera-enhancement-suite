@@ -3,7 +3,7 @@
 
   "name": "Coursera Enhancement Suite",
   "description": "Coursera Enhancement Suite",
-  "version": "0.2.6",
+  "version": "0.2.7",
 
   "content_scripts": [
     {

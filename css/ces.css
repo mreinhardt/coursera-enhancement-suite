@@ -144,6 +144,16 @@
 }
 
 /**
+ * Videos
+ */
+
+.ces-video-summary {
+    float: right;
+    font-size: 0.75em;
+    opacity: 0.4;
+}
+
+/**
  * Badges
  */
 

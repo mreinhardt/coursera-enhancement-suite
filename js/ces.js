@@ -32,7 +32,8 @@ var CES = function(options) {
             'user_menu': chrome.extension.getURL("html/user_menu.html")
         },
         _rx = {
-            'user_link': /profile\?user_id=(\d+)$/
+            'user_link': /profile\?user_id=(\d+)$/,
+            'video_length': /(\d+):(\d+)/
         };
 
     this.tpls = {
@@ -264,6 +265,7 @@ var CES = function(options) {
         'process_new_content': function(ev) {
             self.process['tag_users']();
             self.process['ignore_users']();
+            self.process['lectures_viewed']();
         }
 
     };
@@ -369,6 +371,75 @@ var CES = function(options) {
                     }
                 });
             });
+        }, 500, {'leading': false, 'trailing': true}),
+
+        'lectures_viewed': _.throttle(function() {
+            var $lectures = $els['main'].find('.course-lectures-list');
+
+            if ($lectures.length) {
+                $lectures.find('.course-item-list-header').each(function(i, el) {
+                    var $header = $(this),
+                        $existing_summary = $header.find('.ces-video-summary'),
+                        unviewed_items = $header.find('.course-item-list-section-list li.unviewed').length,
+                        viewed = {
+                            'items': 0,
+                            'minutes': 0,
+                            'seconds': 0
+                        },
+                        total = {
+                            'items': 0,
+                            'minutes': 0,
+                            'seconds': 0
+                        },
+                        display = 'Watched ',
+                        _roundup = function(obj) {
+                            obj['minutes'] += Math.floor(obj['seconds'] / 60);
+                            obj['seconds'] = obj['seconds'] % 60;
+                            obj['hours'] = Math.floor(obj['minutes'] / 60);
+                            obj['minutes'] = obj['minutes'] % 60;
+                        },
+                        _zpad = function(obj) {
+                            obj['minutes'] = obj['minutes'].toString();
+                            obj['minutes'] = obj['minutes'].length > 1 ? obj['minutes'] : '0' + obj['minutes'];
+                            obj['seconds'] = obj['seconds'].toString();
+                            obj['seconds'] = obj['seconds'].length > 1 ? obj['seconds'] : '0' + obj['seconds'];
+                        };
+
+                    if (!$existing_summary.length || $header.data('ces-unviewed-items') > unviewed_items) {
+                        $header.next('.course-item-list-section-list').find('li').each(function(j, ell) {
+                            var $li = $(this),
+                                time_match = $li.text().match(_rx['video_length']),
+                                minutes = time_match ? parseInt(time_match[1], 10) : 0,
+                                seconds = time_match ? parseInt(time_match[2], 10) : 0;
+
+                            total['items'] += 1;
+                            total['minutes'] += minutes;
+                            total['seconds'] += seconds;
+                            if (!$li.hasClass('unviewed')) {
+                                viewed['items'] += 1;
+                                viewed['minutes'] += minutes;
+                                viewed['seconds'] += seconds;
+                            }
+                        });
+
+                        _roundup(total);
+                        _roundup(viewed);
+
+                        _zpad(total);
+                        _zpad(viewed);
+
+                        display += viewed['items'] + ' / ' + total['items'] +
+                                   ' (' + (viewed['hours'] ? viewed['hours'] + ':' : '') +
+                                   viewed['minutes'] + ':' + viewed['seconds'] +
+                                   ' of ' + (total['hours'] ? total['hours'] + ':' : '') +
+                                   total['minutes'] + ':' + total['seconds'] + ')';
+
+                        $header.data('ces-unviewed-items', total['items'] - viewed['items']);
+                        $existing_summary.remove();
+                        $header.find('h3').append('<span class="ces-video-summary">' + display + '</span>');
+                    }
+                });
+            }
         }, 500, {'leading': false, 'trailing': true})
 
     };
